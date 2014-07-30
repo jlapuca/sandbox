@@ -3,7 +3,7 @@
 
 exts = open("extensions.conf", "r")
 
-print 'DID' + '\t' + 'ext'
+print "%20s\t%s" % ('DID', 'ext')
 
 for line in exts:
     if "internalq-calls" in line and not line.startswith(';'):
