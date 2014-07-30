@@ -3,9 +3,11 @@
 
 exts = open("extensions.conf", "r")
 
+print 'DID' + '\t' + 'ext'
+
 for line in exts:
     if "internalq-calls" in line and not line.startswith(';'):
         fields = line.split(' ')[2].split(',')
-        print "find numbers: %s\t%s" % (fields[0], fields[3])
+        print "%20s\t%s" % (fields[0], fields[3])
 
 exts.close()
