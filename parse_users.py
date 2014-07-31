@@ -1,14 +1,8 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
 
-__author__ = 'vspir'
+import ConfigParser
 
-current_section = None
-
-f = open('users.conf', 'r')
-
-for line in f:
-    if line.startswith('['):
-        # написать код изменения current_section
-        pass
-    print current_section
+config = ConfigParser.ConfigParser()
+config.read('users2.conf')
+print config.sections()
