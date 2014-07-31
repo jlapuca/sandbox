@@ -3,15 +3,14 @@
 
 import ConfigParser
 
-exts = open("extensions.conf", "r")
 users = ConfigParser.ConfigParser()
 users.read('users.conf')
 
-print "%-20s\t%s\t%20s" % ('Name', 'ext', 'DID')
+print "%-20s\t%s\t%20s" % ('Name', 'ext', 'DIDS')
 
 
-def getUsername(section):
-   if not section in users.sections():
+def get_username(section):
+    if not section in users.sections():
         return
     try:
         return users.get(section, 'fullname')
@@ -20,13 +19,22 @@ def getUsername(section):
 
 
 #phoneBook = dict(users.sections : getUsername(users.sections))
-phoneBook = {users.sections: 'getUsername(users.sections())'}
+#phoneBook = {users.sections: 'getUsername(users.sections())'}
+phone_book = {
+    ext: {
+        'name': get_username(ext),
+        'dids': [],
+    } for ext in users.sections()
+}
 
-print phoneBook
+#print phone_book
 
+exts = open("extensions.conf", "r")
 for line in exts:
     if "internalq-calls" in line and not line.startswith(';'):
         fields = line.split(' ')[2].split(',')
-        print "%-20s\t%s\t%20s" % (getUsername(fields[3]), fields[3], fields[0])
-
+        phone_book[fields[3]]['dids'].append(fields[0])
 exts.close()
+
+for ext in sorted(phone_book.keys()):
+    print "%-20s\t%s\t%20s" % (phone_book[ext]['name'], ext, phone_book[ext]['dids'])
