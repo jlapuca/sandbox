@@ -1,13 +1,19 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
 
-exts = open("extensions.conf", "r")
+import ConfigParser
 
-print "%20s\t%s" % ('DID', 'ext')
+exts = open("extensions.conf", "r")
+users = ConfigParser.ConfigParser()
+users.read('users.conf')
+
+print "%-20s\t%s\t%20s" % ('Name','ext', 'DID')
 
 for line in exts:
     if "internalq-calls" in line and not line.startswith(';'):
         fields = line.split(' ')[2].split(',')
-        print "%20s\t%s" % (fields[0], fields[3])
+        user = users.get(fields[3], 'fullname')
+        print "%-20s\t%s\t%20s" % (user, fields[3], fields[0])
+
 
 exts.close()
