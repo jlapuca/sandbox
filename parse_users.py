@@ -4,5 +4,5 @@
 import ConfigParser
 
 config = ConfigParser.ConfigParser()
-config.read('users2.conf')
+config.read('users.conf')
 print config.sections()
