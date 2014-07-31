@@ -17,9 +17,6 @@ def get_username(section):
     except ConfigParser.NoOptionError:
         return users.get(section, 'callerid').split('<')[0].strip()
 
-
-#phoneBook = dict(users.sections : getUsername(users.sections))
-#phoneBook = {users.sections: 'getUsername(users.sections())'}
 phone_book = {
     ext: {
         'name': get_username(ext),
